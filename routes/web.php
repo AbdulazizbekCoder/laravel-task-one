@@ -14,9 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\PostController::class, 'index'])->name('index');
+
+Route::get('/{id}', [\App\Http\Controllers\PostController::class, 'edit'])->name('edit');
+
+Route::post('/{id}', [\App\Http\Controllers\PostController::class, 'update'])->name('update');
+
+Route::post('/', [\App\Http\Controllers\PostController::class, 'store'])->name('store');
+
+Route::delete('/{id}', [\App\Http\Controllers\PostController::class, 'delete'])->name('delete');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,4 +36,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
